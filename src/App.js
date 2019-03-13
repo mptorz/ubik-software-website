@@ -1,25 +1,45 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import front from "./front.svg";
+import back from "./back.svg";
+import ReactCardFlip from "react-card-flip";
+
+const Front = () => <img className="App-logo" alt="" src={front} />;
+const Back = () => <img className="App-logo" alt="" src={back} />;
 
 class App extends Component {
+  state = {
+    isFlipped: false
+  };
+
+  flipOn = () => {
+    this.setState({ isFlipped: true });
+  };
+
+  flipOff = () => {
+    this.setState({ isFlipped: false });
+  };
+
+  flip = e => {
+    e.preventDefault();
+    this.setState(prevState => ({ isFlipped: !prevState.isFlipped }));
+  };
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
+        <div
+          onMouseEnter={this.flipOn}
+          onMouseLeave={this.flipOff}
+          onClick={this.flip}
+        >
+          <ReactCardFlip
+            isFlipped={this.state.isFlipped}
+            flipDirection="horizontal"
           >
-            Learn React
-          </a>
-        </header>
+            <Front key="front" />
+            <Back key="back" />
+          </ReactCardFlip>
+        </div>
       </div>
     );
   }

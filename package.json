@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.3.4",
+    "eslint": "^5.15.1",
     "react": "^16.8.4",
+    "react-card-flip": "^0.5.0",
     "react-dom": "^16.8.4",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "request": "^2.88.0"
   },
   "scripts": {
     "start": "react-scripts start",
