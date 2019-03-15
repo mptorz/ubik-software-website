@@ -2,45 +2,52 @@ import React, { Component } from "react";
 import front from "./front.svg";
 import back from "./back.svg";
 import ReactCardFlip from "react-card-flip";
+import Div100vh from "react-div-100vh";
 
 const Front = () => <img className="App-logo" alt="" src={front} />;
 const Back = () => <img className="App-logo" alt="" src={back} />;
 
 class App extends Component {
   state = {
-    isFlipped: false
+    isFlipped: false,
+    neverFlipped: true
   };
 
-  flipOn = () => {
-    this.setState({ isFlipped: true });
-  };
-
-  flipOff = () => {
-    this.setState({ isFlipped: false });
-  };
+  componentDidMount() {
+    const { neverFlipped } = this.state;
+    setTimeout(() => {
+      if (neverFlipped) this.flip(null);
+    }, 2137);
+  }
 
   flip = e => {
-    e.preventDefault();
-    this.setState(prevState => ({ isFlipped: !prevState.isFlipped }));
+    if (e) e.preventDefault();
+    this.setState(prevState => ({
+      isFlipped: !prevState.isFlipped,
+      neverFlippd: false
+    }));
   };
 
   render() {
+    const { isFlipped } = this.state;
     return (
-      <div className="App">
+      <Div100vh className="App">
         <div
-          onMouseEnter={this.flipOn}
-          onMouseLeave={this.flipOff}
+          onTouchMove={e => e.preventDefault()}
+          onMouseEnter={this.flip}
           onClick={this.flip}
         >
           <ReactCardFlip
-            isFlipped={this.state.isFlipped}
-            flipDirection="horizontal"
+            flipSpeedFrontToBack={2.5}
+            flipSpeedBackToFront={2.5}
+            infinite={true}
+            isFlipped={isFlipped}
           >
             <Front key="front" />
             <Back key="back" />
           </ReactCardFlip>
         </div>
-      </div>
+      </Div100vh>
     );
   }
 }
